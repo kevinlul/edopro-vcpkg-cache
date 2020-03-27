@@ -23,4 +23,14 @@ jobs:
         cd vcpkg
         ./vcpkg install --triplet x86-windows-static \
           --overlay-ports=../ports \
-          sdl2-mixer[libflac,mpg123,libvorbis]
+          sdl2-mixer[libflac,mpg123,libvorbis] || :
+    - name: Zip logs
+      shell: bash
+      run: |
+        cd vcpkg
+        "$PROGRAMFILES/7-Zip/7z.exe" a -tzip mpg123.zip buildtrees/mpg123
+    - name: Upload mpg123
+      uses: actions/upload-artifact@v1
+      with:
+        name: mpg123.zip
+        path: vcpkg/mpg123.zip
