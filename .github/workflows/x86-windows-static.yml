@@ -21,9 +21,7 @@ jobs:
       shell: powershell
       run: |
         cd vcpkg
-        .\vcpkg.exe install --triplet x86-windows-static \
-          --overlay-ports=../ports \
-          sdl2-mixer[libflac,mpg123,libvorbis] || :
+        .\vcpkg.exe install --triplet x86-windows-static --overlay-ports=../ports sdl2-mixer[libflac,mpg123,libvorbis]
     - name: Upload mpg123
       uses: actions/upload-artifact@v1
       with:
