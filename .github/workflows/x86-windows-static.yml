@@ -18,10 +18,10 @@ jobs:
       run: |
         echo -e "\nset(VCPKG_PLATFORM_TOOLSET v141)" >> vcpkg/triplets/community/x86-windows-static.cmake
     - name: Install dependencies
-      shell: powershell
+      shell: bash
       run: |
         cd vcpkg
-        .\vcpkg.exe install --triplet x86-windows-static --overlay-ports=../ports sdl2-mixer[libflac,mpg123,libvorbis]
+        ./vcpkg install --triplet x86-windows-static --overlay-ports=../ports mpg123 || :
     - name: Upload mpg123
       uses: actions/upload-artifact@v1
       with:
