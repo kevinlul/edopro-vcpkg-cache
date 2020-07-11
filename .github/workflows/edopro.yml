@@ -107,19 +107,19 @@ jobs:
         git clone --depth=1 https://github.com/Microsoft/vcpkg.git
         cd vcpkg
         ./bootstrap-vcpkg.sh
-    - name: Install SDL2 from vcpkg
-      env:
-        SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-      run: |
-        cd vcpkg
-        ./vcpkg install sdl2
     - name: Install vcpkg dependencies
       run: |
         cd vcpkg
         ./vcpkg install --overlay-ports=../ports \
           freetype libevent libgit2 \
-          sdl2-mixer[core,libflac,mpg123,libvorbis] \
+          libflac mpg123 libvorbis \
           discord-rpc-payload
+    - name: Install SDL2 from vcpkg, targeting the latest SDK
+      env:
+        SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+      run: |
+        cd vcpkg
+        ./vcpkg install sdl2-mixer[libflac,mpg123,libvorbis] --overlay-ports=../ports
     - name: 7-Zip binaries
       run: |
         mv irrlicht vcpkg
